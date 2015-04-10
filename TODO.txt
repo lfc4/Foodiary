@@ -1,0 +1,12 @@
+TODO
+
+FEATURES
+-Graph mode in statistics
+-Predefined meals
+-Sync database between devices
+-Port app to Android, WinRT
+-mail report
+-Settings for last user
+
+BUGS
+

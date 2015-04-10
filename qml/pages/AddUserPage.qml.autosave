@@ -1,0 +1,126 @@
+import QtQuick 2.2
+import Sailfish.Silica 1.0
+
+Page {
+    id: addUser
+    property bool saveUserChanges: false
+    property bool addUser: false
+    property bool addLocation: false
+
+    function clearUserValues(){
+        newName.text = ""
+        age.text = ""
+        weight.text = ""
+        lenght.text = ""
+        type.text = ""
+    }
+    SilicaFlickable {
+        anchors.fill: parent
+        contentHeight: column.height
+        
+        PullDownMenu {
+            MenuItem {
+                text: "New"
+                onClicked: {
+                    
+                }
+            }
+            MenuItem {
+                text: "Save"
+                onClicked: {
+                    
+                }
+            }
+            MenuItem {
+                text: "Delete"
+                onClicked: {
+                    
+                }
+            }
+        }
+        Column {
+            id: column
+            width: parent.width
+            
+            PageHeader {
+                title: "Manage users"
+            }
+            
+            ComboBox {
+                id: names
+                width: parent.width
+                label: "Name"
+                
+                Repeater {
+                    model: diarypage.foo.users
+                    MenuItem { text: model.name }
+                }
+            }
+            
+            TextField {
+                id: age
+                width: parent.width
+                placeholderText: "Age"
+                inputMethodHints: Qt.ImhFormattedNumbersOnly
+                label: "Age"
+                focusOnClick: true
+                
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: gender.focus = true
+            }
+            TextField {
+                id: gender
+                width: parent.width
+                placeholderText: "Gender"
+                label: "Gender"
+                focusOnClick: true
+                
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: weight.focus = true
+            }
+            TextField {
+                id: weight
+                width: parent.width
+                placeholderText: "Weight"
+                inputMethodHints: Qt.ImhFormattedNumbersOnly
+                label: "Weight"
+                focusOnClick: true
+                
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: lenght.focus = true
+            }
+            TextField {
+                id: lenght
+                width: parent.width
+                placeholderText: "Length"
+                inputMethodHints: Qt.ImhFormattedNumbersOnly
+                label: "Length"
+                focusOnClick: true
+                
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: type.focus = true
+            }
+            TextField {
+                id: type
+                width: parent.width
+                placeholderText: "Type"
+                label: "Type"
+                focusOnClick: true
+                
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: focus = false
+            }
+            
+            Button{
+                id: save
+                width: parent.width
+                text: "Save"
+                
+                onClicked: {
+                    foodiary.saveUser()
+                    pageStack.pop()
+                }
+            }
+        }
+    }
+}

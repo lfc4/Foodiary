@@ -2,11 +2,13 @@ TODO
 
 FEATURES
 -Graph mode in statistics
--Predefined meals
 -Sync database between devices
 -Port app to Android, WinRT
 -mail report
 -Settings for last user
 
 BUGS
-
+Predefined meals should only append text to description
+Copy/paste methods instead of being able to change user on entry
+encoding on report faulty
+Sorting on date wrong maybe have to store date as yyyyMMdd to get it right

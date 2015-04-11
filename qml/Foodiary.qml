@@ -172,7 +172,7 @@ ApplicationWindow
             entries.clear()
             try{
                 db.transaction(function(tx) {
-                    var rs = tx.executeSql('SELECT * FROM Diary WHERE user = ? ORDER BY id DESC;', [user]);
+                    var rs = tx.executeSql('SELECT * FROM Diary WHERE user = ? ORDER BY date, time DESC;', [user]);
                     console.log("Sql: " + rs.rows.length + " entries found on " + user + " ");
 
                     for(var i=0; i < rs.rows.length; i++) {

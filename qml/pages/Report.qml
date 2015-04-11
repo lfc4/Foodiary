@@ -3,10 +3,11 @@ import Sailfish.Silica 1.0
 
 Page {
     id: report
-    property string dateFrom: new Date().toLocaleString(Qt.locale(), "d.M.yyyy")
-    property string dateTo: new Date().toLocaleString(Qt.locale(), "d.M.yyyy")
+    property string dateFrom: new Date().toLocaleString(Qt.locale(), "yyyy.MM.dd")
+    property string dateTo: new Date().toLocaleString(Qt.locale(), "yyyy.MM.dd")
     property string dateTimeNow: new Date().toLocaleString(Qt.locale(), "yyyyMMddhhss")
     property bool enableDate: false
+
     property ListModel exttype: ListModel {
         id: exttype
         ListElement { text: ".csv" }
@@ -154,8 +155,8 @@ Page {
                                                             date: new Date()
                                                         })
                             dialog.accepted.connect(function() {
-                                dateFrom =  dialog.date.toLocaleString(Qt.locale(), "d.M.yyyy")
-                                fromdate.text = dialog.date.toLocaleString(Qt.locale(), "d.M.yyyy")
+                                dateFrom =  dialog.date.toLocaleString(Qt.locale(), "yyyy.MM.dd")
+                                fromdate.text = dialog.date.toLocaleString(Qt.locale(), "yyyy.MM.dd")
                                 saveChanges = true
                             })
                         }
@@ -192,8 +193,8 @@ Page {
                                                             date: new Date()
                                                         })
                             dialog.accepted.connect(function() {
-                                dateTo =  dialog.date.toLocaleString(Qt.locale(), "d.M.yyyy")
-                                todate.text = dialog.date.toLocaleString(Qt.locale(), "d.M.yyyy")
+                                dateTo =  dialog.date.toLocaleString(Qt.locale(), "yyyy.MM.dd")
+                                todate.text = dialog.date.toLocaleString(Qt.locale(), "yyyy.MM.dd")
                                 saveChanges = true
                             })
                         }
@@ -207,7 +208,7 @@ Page {
                 text: "Run"
 
                 onClicked: {
-                    if(enableDate)
+                    if(enableDate == true)
                         foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text, foodiary.currentUser, layouts.get(type.currentIndex).text, dateFrom, dateTo)
                    else
                         foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text, foodiary.currentUser, layouts.get(type.currentIndex).text, "", "")

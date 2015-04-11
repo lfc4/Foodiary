@@ -12,7 +12,7 @@ Page {
         }
         catch(err){
             console.log("Error dateNow: " + err)
-            res = new Date().toLocaleString(Qt.locale(), "dddd d.M")
+            res = new Date().toLocaleString(Qt.locale(), "yyyy.MM.dd")
         }
         console.log("dateNow set to: '" + res + "'")
         return res
@@ -144,9 +144,9 @@ Page {
     }
 
     function clearAllValues() {
-        dateNow = new Date().toLocaleString(Qt.locale(), "d.M.yyyy")
+        dateNow = new Date().toLocaleString(Qt.locale(), "yyyy.MM.dd")
         timeNow = new Date().toLocaleString(Qt.locale(), "hh:mm")
-        dateTime.text = new Date().toLocaleString(Qt.locale(), "dddd d.M") + " | " + new Date().toLocaleString(Qt.locale(), "hh.mm")
+        dateTime.text = FileIO.convertDateTime(dateNow) + " | " + timeNow
         before.source = "Foodiary.jpg"
         place.currentIndex = 0
         mealz.currentIndex = 0
@@ -331,7 +331,7 @@ Page {
                 Label {
                     id: dateTime
                     width: parent.width/2
-                    text: dateNow.toLocaleString(Qt.locale(), "dddd d.M") + " | " + timeNow
+                    text: FileIO.convertDateTime(dateNow) + " | " + timeNow
                     anchors.centerIn: parent
 
                     MouseArea {
@@ -345,8 +345,8 @@ Page {
                                                             date: new Date()
                                                         })
                             dialog.accepted.connect(function() {
-                                dateNow =  dialog.date.toLocaleString(Qt.locale(), "d.M.yyyy")
-                                dateTime.text = dialog.date.toLocaleString(Qt.locale(), "dddd d.M") + " | " + timeNow
+                                dateNow =  dialog.date.toLocaleString(Qt.locale(), "yyyy.MM.dd")
+                                dateTime.text = FileIO.convertDateTime(dateNow) + " | " + timeNow
                                 saveChanges = true
                             })
                         }
@@ -364,7 +364,7 @@ Page {
                                                         })
                             dialog.accepted.connect(function() {
                                 timeNow = dialog.time.toLocaleString(Qt.locale(), "hh:mm")
-                                dateTime.text = dateNow + " | " + dialog.time.toLocaleString(Qt.locale(), "hh:mm")
+                                dateTime.text = FileIO.convertDateTime(dateNow) + " | " + dialog.time.toLocaleString(Qt.locale(), "hh:mm")
                                 saveChanges = true
                             })
                         }
@@ -528,6 +528,7 @@ Page {
         foodiary.getMeals()
         foodiary.getEntries(foodiary.currentUser)
         foodiary.currentEntry = ""
+        clearAllValues()
     }
 
     Component.onDestruction:{

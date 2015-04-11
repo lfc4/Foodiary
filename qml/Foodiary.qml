@@ -210,10 +210,15 @@ ApplicationWindow
             var where = "WHERE user = '" + user + "' "
             var order = "ORDER BY id "
 
-            if((startDate != "" && endDate == "") || startDate == endDate)
+            console.log("Fromdate: " + startDate + ", Todate: " + endDate)
+            if(startDate != "" && endDate == ""){
                 where += "AND date = '" + startDate + "' "
-            else
-                where += "AND date >= '" + startDate + "' AND date <= '" + startDate + "' "
+            }
+            else if(startDate == endDate && startDate != ""){
+             where += "AND date = '" + startDate + "' "
+            }
+            else if(startDate != "" && endDate != "")
+                where += "AND date >= '" + startDate + "' AND date <= '" + endDate + "' "
 
             var sql = select + where + order
             console.log("Executing select: " + sql)

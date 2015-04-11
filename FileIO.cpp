@@ -50,7 +50,7 @@ QString FileIO::documentsLocation()
 
 QString FileIO::convertDateTime(QString date)
 {
-    QDateTime datetime = QDateTime::fromString(date, "d.M.yyyy");
+    QDateTime datetime = QDateTime::fromString(date, "yyyy.MM.dd");
     qDebug() << " date: " << date;
     qDebug() << " date toString: " << datetime.toString("dddd d.M");
     return datetime.toString("dddd d.M");

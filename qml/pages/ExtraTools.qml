@@ -6,7 +6,7 @@ Page {
 
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: column.height
+        contentHeight: colud.height
 
         PullDownMenu {
             MenuItem {
@@ -60,6 +60,16 @@ Page {
 
             onClicked: {
                 foodiary.runCmd(command.text)
+            }
+        }
+
+        Button{
+            id: change
+            width: parent.width
+            text: "Change"
+
+            onClicked: {
+                foodiary.change()
             }
         }
     }

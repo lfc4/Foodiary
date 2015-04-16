@@ -27,6 +27,54 @@ ApplicationWindow
         property ListModel meals: ListModel {id: meals}
         signal sendReport(string file, string msg)
 
+        function change() {
+            openDB();
+
+            try{
+                db.transaction(function(tx){
+                    tx.executeSql(
+                                'CREATE TABLE Temp AS SELECT * FROM Diary'
+                                );
+                    });
+
+                db.transaction(function(tx){
+                    tx.executeSql(
+                                'DROP TABLE Diary'
+                                );
+                    });
+
+                db.transaction(function(tx){
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS Diary(
+                                      id INTEGER PRIMARY KEY,
+                                      user INTEGER,
+                                      date DATETIME,
+                                      time DATETIME,
+                                      picture TEXT,
+                                      bloodsugar REAL,
+                                      description TEXT,
+                                      location TEXT,
+                                      other TEXT,
+                                      meal TEXT
+                                   )');
+
+                });
+                db.transaction(function(tx){
+                    tx.executeSql(
+                                'INSERT INTO Diary SELECT * FROM Temp'
+                                );
+                    });
+
+                db.transaction(function(tx){
+                    tx.executeSql(
+                                'DROP TABLE Temp'
+                                );
+                    });
+                console.log("Sql: OK");
+            }catch(err){
+                console.log("Sql: " + err);
+            }
+        }
+
         function openDB() {
             if(db !== null) return;
 
@@ -47,8 +95,8 @@ ApplicationWindow
                     tx.executeSql('CREATE TABLE IF NOT EXISTS Diary(
                                       id INTEGER PRIMARY KEY,
                                       user INTEGER,
-                                      date TEXT,
-                                      time TEXT,
+                                      date DATETIME,
+                                      time DATETIME,
                                       picture TEXT,
                                       bloodsugar REAL,
                                       description TEXT,
@@ -172,7 +220,7 @@ ApplicationWindow
             entries.clear()
             try{
                 db.transaction(function(tx) {
-                    var rs = tx.executeSql('SELECT * FROM Diary WHERE user = ? ORDER BY date, time DESC;', [user]);
+                    var rs = tx.executeSql('SELECT * FROM Diary WHERE user = ? ORDER BY date DESC, time DESC;', [user]);
                     console.log("Sql: " + rs.rows.length + " entries found on " + user + " ");
 
                     for(var i=0; i < rs.rows.length; i++) {

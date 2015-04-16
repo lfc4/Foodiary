@@ -137,7 +137,8 @@ Page {
         dateTime.text = FileIO.convertDateTime(dateNow) + " | " + timeNow
         before.source = validatePicture()
         place.currentIndex = validatePlace()
-        mealz.currentIndex = validateMeal()
+        //mealz.currentIndex = validateMeal()
+        mealz.currentIndex = 0
         bloodsugar.text = validateBS()
         description.text = validateDescription()
         other.text = validateOther()
@@ -163,7 +164,7 @@ Page {
         {
             if(saveChanges === true && foodiary.currentEntry !== "")
             {
-                foodiary.updateDiary(foodiary.entries.get(foodiary.currentEntry).id, foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, foodiary.currentMeal)
+                foodiary.updateDiary(foodiary.entries.get(foodiary.currentEntry).id, foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, "")
                 //foodiary.getEntries(foodiary.currentUser)
                 foodiary.currentEntry = "" //= foodiary.newestEntry
                 clearAllValues()
@@ -187,7 +188,7 @@ Page {
                 {
                     bloodsugar.text = "0.0"
                 }
-                foodiary.saveDiary(foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, foodiary.currentMeal)
+                foodiary.saveDiary(foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, "")
                 //foodiary.getEntries(foodiary.currentUser)
                 foodiary.currentEntry = "" // foodiary.newestEntry
                 console.log("Save: " + foodiary.currentUser);
@@ -484,7 +485,7 @@ Page {
                         console.log("Id: " + foodiary.meals.get(mealz.currentIndex).id)
                         console.log("Description: " + foodiary.meals.get(mealz.currentIndex).description)
                         foodiary.currentMeal = mealz.currentIndex
-                        description.text = foodiary.meals.get(mealz.currentIndex).description
+                        description.text += "\r\n" + foodiary.meals.get(mealz.currentIndex).description
                         saveChanges = true
                     }
                 }

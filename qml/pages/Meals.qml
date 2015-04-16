@@ -17,6 +17,12 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: "Delete"
+                onClicked: {
+
+                }
+            }
+            MenuItem {
                 text: "New"
                 onClicked: {
                     clearMealValues()
@@ -38,18 +44,15 @@ Page {
                         mealName.visible = true
                         newMealName.visible = false
                         mealName.currentIndex = 0
+                        descr.text = ""
                     }
                     else
                     {
                         foodiary.updateMeal(foodiary.meals.get(mealName.currentIndex).id, foodiary.meals.get(mealName.currentIndex).name, descr.text)
                         foodiary.getMeals()
+                        mealName.currentIndex = 0
+                        descr.text = ""
                     }
-                }
-            }
-            MenuItem {
-                text: "Delete"
-                onClicked: {
-
                 }
             }
         }
@@ -73,6 +76,10 @@ Page {
                         MenuItem { text: model.name }
                     }
                 }
+
+                onCurrentIndexChanged:{
+                    descr.text = foodiary.meals.get(mealName.currentIndex).description
+                }
             }
 
             TextField {
@@ -91,18 +98,17 @@ Page {
                 }
             }
 
-            TextField {
+            TextArea {
                 id: descr
                 width: parent.width
+                height: Math.max(parent.width/6, implicitHeight)
                 placeholderText: "Description"
                 label: "Description"
                 focusOnClick: true
                 text: foodiary.meals.get(mealName.currentIndex).description
 
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
-
                 onTextChanged: {
-                    saveMealChanges = true
+                 saveMealChanges = true
                 }
             }
         }

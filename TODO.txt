@@ -8,7 +8,7 @@ FEATURES
 -Settings for last user
 
 BUGS
-Predefined meals should only append text to description
 Copy/paste methods instead of being able to change user on entry
 encoding on report faulty
-Sorting on date wrong maybe have to store date as yyyyMMdd to get it right
+overlapping menu in statistics
+location and user settings don't refresh properly

@@ -30,6 +30,16 @@ void FileIO::appendToReport(QString fileName, QString row)
     }
 }
 
+void FileIO::splitAndWriteLine(QString file, QString text)
+{
+    QStringList list = text.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+
+    foreach(QString s, list)
+    {
+        appendToReport(file, s);
+    }
+}
+
 void FileIO::closeReport(QString fileName)
 {
     QFile file(fileName);

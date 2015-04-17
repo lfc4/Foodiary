@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE QString convertDateTime(QString date);
     Q_INVOKABLE QString lastUser();
     Q_INVOKABLE void saveSettings(QString user);
+    Q_INVOKABLE void splitAndWriteLine(QString file, QString text);
 };
 
 #endif // FILEIO_H

@@ -5,7 +5,7 @@ Page {
     id: report
     property string dateFrom: new Date().toLocaleString(Qt.locale(), "yyyy.MM.dd")
     property string dateTo: new Date().toLocaleString(Qt.locale(), "yyyy.MM.dd")
-    property string dateTimeNow: new Date().toLocaleString(Qt.locale(), "yyyyMMddhhss")
+    property string dateTimeNow: new Date().toLocaleString(Qt.locale(), "yyyyMMddhhmmss")
     property bool enableDate: false
 
     property ListModel exttype: ListModel {
@@ -212,7 +212,7 @@ Page {
                         foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text, foodiary.currentUser, layouts.get(type.currentIndex).text, dateFrom, dateTo)
                    else
                         foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text, foodiary.currentUser, layouts.get(type.currentIndex).text, "", "")
-                    file.text = foodiary.users.get(foodiary.currentUser - 1) + "_" + new Date().toLocaleString(Qt.locale(), "yyyyMMddhhss")
+                    file.text = foodiary.users.get(foodiary.currentUser - 1) + "_" + new Date().toLocaleString(Qt.locale(), "yyyyMMddhhmmss")
                     pageStack.pop()
                 }
             }

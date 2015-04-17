@@ -256,7 +256,7 @@ ApplicationWindow
             console.log("Creating report " + fileName + " of type " + type)
             var select = "SELECT * FROM Diary "
             var where = "WHERE user = '" + user + "' "
-            var order = "ORDER BY id "
+            var order = "ORDER BY date ASC, time ASC "
 
             console.log("Fromdate: " + startDate + ", Todate: " + endDate)
             if(startDate != "" && endDate == ""){
@@ -272,6 +272,12 @@ ApplicationWindow
             console.log("Executing select: " + sql)
             var header = "Name: " + users.get(currentUser - 1).name + "\r\nWeight: " + users.get(currentUser - 1).weight + "\r\nLength: " + users.get(currentUser - 1).length + "\r\nAge: " + users.get(currentUser - 1).age + "\r\n"
             FileIO.appendToReport(fileName, header + "\r\n")
+
+            if(type == "VCS")
+                FileIO.appendToReport(fileName, "Location, Date, Time, BS(mmol/l), Description, Other\r\n")
+            else
+                FileIO.appendToReport(fileName, "ID,User,Date,Time,BS(mmol/l),Picture URL,Location,Other,Meal ID\r\n")
+            var splitDesc = ""
             openDB();
             try{
                 db.transaction(function(tx) {
@@ -291,10 +297,44 @@ ApplicationWindow
                         var o = rs.rows.item(i).other || ""
                         var m = rs.rows.item(i).meal || ""
 
-                        if(type == "VCS")
-                            FileIO.appendToReport(fileName, locations.get(l).name + "," + d  + "," + t  + "," + b  + "," + desc  + "," + o + "\r\n")
-                        else
-                            FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + desc  + "," + fileName, locations.get(l).name  + "," + o + "," + m + "\r\n")
+                        try
+                        {
+                            if(desc !== "")
+                            {
+                                var res = desc.split("\n");
+                                console.log("Found " + res.length + " rows in description " + desc)
+
+                                for(var j = 0; j < res.length; j++)
+                                {
+                                    console.log("Index i " + j)
+                                    if(type == "VCS")
+                                    {
+                                        if(j == 0)
+                                            FileIO.appendToReport(fileName, locations.get(l - 1).name + "," + d  + "," + t  + "," + b  + "," + res[j]  + "," + o + "\r\n")
+                                        else
+                                            FileIO.appendToReport(fileName, ",,,," + res[j]  + ",\r\n")
+                                    }
+                                    else
+                                    {
+                                        if(j == 0)
+                                            FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + res[j]  + "," + fileName, locations.get(l - 1).name  + "," + o + "," + m + "\r\n")
+                                        else
+                                            FileIO.appendToReport(fileName, ",,,,,," + res[j]  + ",,,\r\n")
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                console.log("Description " + desc)
+                                if(type == "VCS")
+                                    FileIO.appendToReport(fileName, locations.get(l).name + "," + d  + "," + t  + "," + b  + "," + desc  + "," + o + "\r\n")
+                                else
+                                    FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + desc  + "," + fileName, locations.get(l).name  + "," + o + "," + m + "\r\n")
+                            }
+                        }
+                        catch(er){
+                            console.log("Split: " + er);
+                        }
                     }
                 }
                 );

@@ -9,6 +9,6 @@ FEATURES
 
 BUGS
 Copy/paste methods instead of being able to change user on entry
-encoding on report faulty
 overlapping menu in statistics
 location and user settings don't refresh properly
+email report to address

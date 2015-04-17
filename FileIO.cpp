@@ -24,6 +24,7 @@ void FileIO::appendToReport(QString fileName, QString row)
     QFile file(fileName);
     if (file.open(QIODevice::Append)) {
         QTextStream out(&file);
+        out.setCodec("UTF-8");
         out << row;
         file.close();
     }

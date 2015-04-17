@@ -7,6 +7,7 @@ FEATURES
 -mail report
 -Settings for last user
 -Define own report templates
+-Add sections per day in statistics
 
 BUGS
 Copy/paste methods instead of being able to change user on entry

@@ -18,6 +18,14 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: "Delete"
+                onClicked: {
+                    foodiary.deleteLocation(locationName.currentIndex + 1)
+                    foodiary.getLocations()
+                    locationName.currentIndex = 0
+                }
+            }
+            MenuItem {
                 text: "New"
                 onClicked: {
                     clearLocationValues()
@@ -25,6 +33,7 @@ Page {
                     locationName.visible = false
                     newLocationName.visible = true
                     newLocationName.focus = true
+                    description.text = ""
                 }
             }
             MenuItem {
@@ -44,13 +53,8 @@ Page {
                     {
                         foodiary.updateLocation(foodiary.locations.get(locationName.currentIndex).id, foodiary.locations.get(locationName.currentIndex).name, description.text, coordinates.text)
                         foodiary.getLocations()
+                        locationName.currentIndex = 0
                     }
-                }
-            }
-            MenuItem {
-                text: "Delete"
-                onClicked: {
-
                 }
             }
         }

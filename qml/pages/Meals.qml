@@ -19,7 +19,10 @@ Page {
             MenuItem {
                 text: "Delete"
                 onClicked: {
-
+                    foodiary.deleteMeal(mealName.currentIndex)
+                    foodiary.getMeals()
+                    mealName.currentIndex = 0
+                    descr.text = ""
                 }
             }
             MenuItem {
@@ -30,6 +33,7 @@ Page {
                     mealName.visible = false
                     newMealName.visible = true
                     newMealName.focus = true
+                    descr.text = ""
                 }
             }
             MenuItem {

@@ -458,7 +458,7 @@ ApplicationWindow
                 db.transaction(function(tx) {
                     tx.executeSql("UPDATE Locations SET name = '" + name
                                   + "', description = '" + description
-                                  + "', gender = '" + coordinates
+                                  + "', coordinates = '" + coordinates
                                   + "' WHERE id = " + id);
                 }
                 );

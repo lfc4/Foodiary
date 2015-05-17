@@ -10,6 +10,10 @@ FEATURES
 -Add sections per day in statistics
 
 BUGS
-Copy/paste methods instead of being able to change user on entry
+Copy to new option when selecting from stats
 overlapping menu in statistics
 meal, location and user settings don't refresh properly after creating new and/or saving(partially fixed on meal and location)
+Location other than home not shown properly
+Language options
+Change vcs template
+Camera not working

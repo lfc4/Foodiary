@@ -15,9 +15,8 @@ TARGET = Foodiary
 CONFIG += sailfishapp
 
 SOURCES += \
-    FileIO.cpp \
     Foodiary.cpp \
-    test.cpp
+    reportwriter.cpp
 
 OTHER_FILES += qml/Foodiary.qml \
     qml/cover/CoverPage.qml \
@@ -51,6 +50,5 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/Foodiary-de.ts
 
 HEADERS += \
-    FileIO.h \
-    test.h
+    reportwriter.h
 

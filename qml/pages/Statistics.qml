@@ -94,9 +94,9 @@ Page {
                 text: {
                     console.log("BS: " + bs.toFixed(1))
                     if(bs.toFixed(1) != 0.0)
-                        FileIO.convertDateTime(date) + " " + time + " " + bs.toFixed(1) + " mmol/l"
+                        ReportWriter.convertDateTime(date) + " " + time + " " + bs.toFixed(1) + " mmol/l"
                     else
-                        FileIO.convertDateTime(date) + " " + time
+                        ReportWriter.convertDateTime(date) + " " + time
                 }
                 anchors.verticalCenter: parent.verticalCenter
                 color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor

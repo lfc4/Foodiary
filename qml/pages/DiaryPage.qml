@@ -134,7 +134,7 @@ Page {
     function refreshAllValues() {
         dateNow = validateDate()
         timeNow = validateTime()
-        dateTime.text = FileIO.convertDateTime(dateNow) + " | " + timeNow
+        dateTime.text = ReportWriter.convertDateTime(dateNow) + " | " + timeNow
         before.source = validatePicture()
         place.currentIndex = validatePlace()
         //mealz.currentIndex = validateMeal()
@@ -147,7 +147,7 @@ Page {
     function clearAllValues() {
         dateNow = new Date().toLocaleString(Qt.locale(), "yyyy.MM.dd")
         timeNow = new Date().toLocaleString(Qt.locale(), "hh:mm")
-        dateTime.text = FileIO.convertDateTime(dateNow) + " | " + timeNow
+        dateTime.text = ReportWriter.convertDateTime(dateNow) + " | " + timeNow
         before.source = "Foodiary.jpg"
         place.currentIndex = 0
         mealz.currentIndex = 0
@@ -332,7 +332,7 @@ Page {
                 Label {
                     id: dateTime
                     width: parent.width/2
-                    text: FileIO.convertDateTime(dateNow) + " | " + timeNow
+                    text: ReportWriter.convertDateTime(dateNow) + " | " + timeNow
                     anchors.centerIn: parent
 
                     MouseArea {
@@ -347,7 +347,7 @@ Page {
                                                         })
                             dialog.accepted.connect(function() {
                                 dateNow =  dialog.date.toLocaleString(Qt.locale(), "yyyy.MM.dd")
-                                dateTime.text = FileIO.convertDateTime(dateNow) + " | " + timeNow
+                                dateTime.text = ReportWriter.convertDateTime(dateNow) + " | " + timeNow
                                 saveChanges = true
                             })
                         }
@@ -365,7 +365,7 @@ Page {
                                                         })
                             dialog.accepted.connect(function() {
                                 timeNow = dialog.time.toLocaleString(Qt.locale(), "hh:mm")
-                                dateTime.text = FileIO.convertDateTime(dateNow) + " | " + dialog.time.toLocaleString(Qt.locale(), "hh:mm")
+                                dateTime.text = ReportWriter.convertDateTime(dateNow) + " | " + dialog.time.toLocaleString(Qt.locale(), "hh:mm")
                                 saveChanges = true
                             })
                         }
@@ -533,6 +533,6 @@ Page {
     }
 
     Component.onDestruction:{
-            FileIO.saveSettings(foodiary.currentUser)
+            ReportWriter.saveSettings(foodiary.currentUser)
     }
 }

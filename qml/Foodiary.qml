@@ -251,8 +251,7 @@ ApplicationWindow
         }
 
         function exportDiary(fileName, user, type, startDate, endDate) {
-
-            FileIO.createReport(fileName)
+            ReportWriter.init()
             console.log("Creating report " + fileName + " of type " + type)
             var select = "SELECT * FROM Diary "
             var where = "WHERE user = '" + user + "' "
@@ -267,24 +266,26 @@ ApplicationWindow
             }
             else if(startDate != "" && endDate != "")
                 where += "AND date >= '" + startDate + "' AND date <= '" + endDate + "' "
-
+            //ReportWriter.addEntry()
             var sql = select + where + order
             console.log("Executing select: " + sql)
-            var header = "Name: " + users.get(currentUser - 1).name + "\r\nWeight: " + users.get(currentUser - 1).weight + "\r\nLength: " + users.get(currentUser - 1).length + "\r\nAge: " + users.get(currentUser - 1).age + "\r\n"
-            FileIO.appendToReport(fileName, header + "\r\n")
+            //var header = "Name: " + users.get(currentUser - 1).name + "\r\nWeight: " + users.get(currentUser - 1).weight + "\r\nLength: " + users.get(currentUser - 1).length + "\r\nAge: " + users.get(currentUser - 1).age + "\r\n"
+            //FileIO.appendToReport(fileName, header + "\r\n")
 
-            if(type == "VCS")
-                FileIO.appendToReport(fileName, "Location, Date, Time, BS(mmol/l), Description, Other\r\n")
-            else
-                FileIO.appendToReport(fileName, "ID,User,Date,Time,BS(mmol/l),Picture URL,Location,Other,Meal ID\r\n")
+//            if(type == "VCS")
+//                FileIO.appendToReport(fileName, "Location, Date, Time, BS(mmol/l), Description, Other\r\n")
+//            else
+//                FileIO.appendToReport(fileName, "ID,User,Date,Time,BS(mmol/l),Picture URL,Location,Other,Meal ID\r\n")
             var splitDesc = ""
             openDB();
+            var oldDate = ""
             try{
                 db.transaction(function(tx) {
                     var rs = tx.executeSql(sql);
                     console.log("Sql: Exporting " + rs.rows.length + " entries for " + user + " ");
 
-                    for(var i=0; i < rs.rows.length; i++) {
+                    for(var i=0; i < rs.rows.length; i++)
+                    {
                         //power of javascript O_o
                         var ind = rs.rows.item(i).id || ""
                         var u = rs.rows.item(i).user || ""
@@ -299,6 +300,11 @@ ApplicationWindow
 
                         try
                         {
+                            if(d != oldDate) {
+                                ReportWriter.addHeader(users.get(u - 1).name, d)
+                                oldDate = d
+                            }
+
                             if(desc !== "")
                             {
                                 var res = desc.split("\n");
@@ -306,20 +312,20 @@ ApplicationWindow
 
                                 for(var j = 0; j < res.length; j++)
                                 {
-                                    console.log("Index i " + j)
+                                    console.log("Index j " + j)
                                     if(type == "VCS")
                                     {
                                         if(j == 0)
-                                            FileIO.appendToReport(fileName, locations.get(l - 1).name + "," + d  + "," + t  + "," + b  + "," + res[j]  + "," + o + "\r\n")
+                                            ReportWriter.addEntry(locations.get(l - 1).name, t, b, res[j], o)
                                         else
-                                            FileIO.appendToReport(fileName, ",,,," + res[j]  + ",\r\n")
+                                            ReportWriter.addEntry("", "", "", res[j], "")
                                     }
                                     else
                                     {
-                                        if(j == 0)
-                                            FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + res[j]  + "," + fileName, locations.get(l - 1).name  + "," + o + "," + m + "\r\n")
-                                        else
-                                            FileIO.appendToReport(fileName, ",,,,,," + res[j]  + ",,,\r\n")
+//                                        if(j == 0)
+//                                            FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + res[j]  + "," + fileName, locations.get(l - 1).name  + "," + o + "," + m + "\r\n")
+//                                        else
+//                                            FileIO.appendToReport(fileName, ",,,,,," + res[j]  + ",,,\r\n")
                                     }
                                 }
                             }
@@ -327,15 +333,16 @@ ApplicationWindow
                             {
                                 console.log("Description " + desc)
                                 if(type == "VCS")
-                                    FileIO.appendToReport(fileName, locations.get(l).name + "," + d  + "," + t  + "," + b  + "," + desc  + "," + o + "\r\n")
-                                else
-                                    FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + desc  + "," + fileName, locations.get(l).name  + "," + o + "," + m + "\r\n")
+                                    ReportWriter.addEntry(locations.get(l - 1).name, t, b, desc, o)
+//                                else
+//                                    FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + desc  + "," + fileName, locations.get(l).name  + "," + o + "," + m + "\r\n")
                             }
                         }
                         catch(er){
                             console.log("Split: " + er);
                         }
                     }
+                    ReportWriter.write(fileName, type)
                 }
                 );
             }

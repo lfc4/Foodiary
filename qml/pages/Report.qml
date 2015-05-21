@@ -10,9 +10,8 @@ Page {
 
     property ListModel exttype: ListModel {
         id: exttype
+        ListElement { text: ".odt" }
         ListElement { text: ".csv" }
-        ListElement { text: ".txt" }
-        ListElement { text: ".xml" }
     }
     property ListModel layouts: ListModel {
         id: layouts
@@ -70,7 +69,7 @@ Page {
                 placeholderText: "File path"
                 label: "Path"
                 focusOnClick: true
-                text: FileIO.documentsLocation()
+                text: ReportWriter.documentsLocation()
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 //EnterKey.onClicked: age.focus = true
 
@@ -209,9 +208,9 @@ Page {
 
                 onClicked: {
                     if(enableDate == true)
-                        foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text, foodiary.currentUser, layouts.get(type.currentIndex).text, dateFrom, dateTo)
+                        foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text , foodiary.currentUser, layouts.get(type.currentIndex).text, dateFrom, dateTo)
                    else
-                        foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text, foodiary.currentUser, layouts.get(type.currentIndex).text, "", "")
+                        foodiary.exportDiary(path.text + file.text + exttype.get(extension.currentIndex).text , foodiary.currentUser, layouts.get(type.currentIndex).text, "", "")
                     file.text = foodiary.users.get(foodiary.currentUser - 1) + "_" + new Date().toLocaleString(Qt.locale(), "yyyyMMddhhmmss")
                     pageStack.pop()
                 }

@@ -9,14 +9,15 @@
 #include <QQmlContext>
 #include <QDateTime>
 #include <QObject>
-#include <FileIO.h>
+#include <reportwriter.h>
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
    QScopedPointer<QQuickView> view(SailfishApp::createView());
-   FileIO data;
-   view->rootContext()->setContextProperty("FileIO", &data);
+
+   ReportWriter reportWriter;
+   view->rootContext()->setContextProperty("ReportWriter", &reportWriter);
    view->setSource(SailfishApp::pathTo("qml/Foodiary.qml"));
 
    view->show();

@@ -157,7 +157,7 @@ Page {
             id: pullDownMenu
             MenuItem {
                 text: "Clear"
-                visible: diarylist.count
+                visible: listView.count
                 onClicked: clearRemorse.execute("Clearing", function() { clearAll() } )
             }
             MenuItem {
@@ -168,7 +168,7 @@ Page {
             }
             MenuItem {
                 text: "Jump to the end"
-                onClicked: diarylist.scrollToBottom()
+                onClicked: listView.scrollToBottom()
             }
         }
 
@@ -244,31 +244,6 @@ Page {
                 }
             }
         }
-
-//    ListModel {
-//        id: listModel
-//    }
-
-    //onPageContainerChanged: addItems()
-
-//    function addItems() {
-//        var entries = (pageContainer && pageContainer.depth % 2 == 1) ? 40 : 5
-//        var spaceIpsumWords = ["Since", "long", "run", "every", "planetary", "civilization", "endangered", "impacts", "space", "every", "surviving",
-//                               "civilization", "obliged", "become", "spacefaring", "because", "exploratory", "romantic", "zeal", "most", "practical",
-//                               "reason", "imaginable", "staying", "alive", "long-term", "survival", "stake", "have", "basic", "responsibility", "species",
-//                               "venture", "other", "worlds", "one", "small", "step", "man", "one", "giant", "leap", "mankind", "powered", "flight",
-//                               "total", "about", "eight", "half", "minutes", "seemed", "gone", "lash", "gone", "from", "sitting", "still", "launch",
-//                               "pad", "Kennedy", "Space", "Center", "traveling", "17500", "miles", "hour", "eight", "half", "minutes", "still",
-//                               "recall", "making", "some", "statement", "air", "ground", "radio", "benefit", "fellow", "astronauts", "who", "also",
-//                               "program", "long", "time", "well", "worth", "took", "been", "wait", "mind-boggling"]
-
-//        for (var index = 0; index < entries; index++) {
-//            listModel.append({"text": spaceIpsumWords[index*2] + " " + spaceIpsumWords[index*2+1]})
-//        }
-//        for (index = 0; index < entries; index++) {
-//            listModel.append({"text": spaceIpsumWords[index*2] + " " + spaceIpsumWords[index*2+1]})
-//        }
-//    }
     }
     Component.onCompleted:{
         foodiary.getEntries(foodiary.currentUser)

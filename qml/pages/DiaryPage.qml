@@ -111,7 +111,7 @@ Page {
     function validateUser(){
         var res = ""
         try {
-            res = foodiary.entries.get[foodiary.entries.get(foodiary.currentEntry).id].user
+            res = foodiary.entries.get[foodiary.entries.get(foodiary.currentEntry).id - 1].user
         }
         catch(err){
             console.log("Error User: " + err)
@@ -165,15 +165,14 @@ Page {
             if(saveChanges === true && foodiary.currentEntry !== "")
             {
                 foodiary.updateDiary(foodiary.entries.get(foodiary.currentEntry).id, foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, "")
-                //foodiary.getEntries(foodiary.currentUser)
-                foodiary.currentEntry = "" //= foodiary.newestEntry
+                foodiary.currentEntry = ""
                 clearAllValues()
                 editMode = false
                 saveChanges = false
                 userChanged = false
             }
             else{
-                foodiary.currentEntry = "" //= foodiary.newestEntry
+                foodiary.currentEntry = ""
                 clearAllValues()
                 editMode = false
                 saveChanges = fals
@@ -189,15 +188,14 @@ Page {
                     bloodsugar.text = "0.0"
                 }
                 foodiary.saveDiary(foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, "")
-                //foodiary.getEntries(foodiary.currentUser)
-                foodiary.currentEntry = "" // foodiary.newestEntry
+                foodiary.currentEntry = ""
                 console.log("Save: " + foodiary.currentUser);
                 clearAllValues()
                 saveChanges = false
                 userChanged = false
             }
             else{
-                foodiary.currentEntry = "" //= foodiary.newestEntry
+                foodiary.currentEntry = ""
                 clearAllValues()
                 editMode = false
                 saveChanges = false
@@ -302,7 +300,8 @@ Page {
                                 break
                             }
                             foodiary.currentUser = foodiary.users.get(currentIndex).id
-                            //ph.title = foodiary.currentUser
+                            ReportWriter.saveSettings(foodiary.currentUser)
+                             console.log("last user set to: " + foodiary.currentUser);
 
                             if(foodiary.currentUser !== prevUser && editMode === true) {
                                 if(foodiary.currentUser !== validateUser())
@@ -421,7 +420,7 @@ Page {
                     id: pictureSource
                     width: parent.width
                     label: "Source"
-                    currentIndex: 1
+                    currentIndex: 0
                     visible: true
 
                     menu: ContextMenu {
@@ -444,7 +443,7 @@ Page {
                     }
 
                    onCurrentIndexChanged:{
-                       foodiary.currentLocation = foodiary.locations.get(place.currentIndex).id
+                       foodiary.currentLocation = foodiary.locations.get(place.currentIndex -1).id
                        saveChanges = true
                    }
                 }
@@ -530,9 +529,5 @@ Page {
         foodiary.getEntries(foodiary.currentUser)
         foodiary.currentEntry = ""
         clearAllValues()
-    }
-
-    Component.onDestruction:{
-            ReportWriter.saveSettings(foodiary.currentUser)
     }
 }

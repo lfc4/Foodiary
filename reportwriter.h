@@ -15,8 +15,6 @@ public:
     explicit ReportWriter(QObject *parent = 0);
     ~ReportWriter();
 
-    QSettings* settings;
-
     Q_INVOKABLE void init();
     Q_INVOKABLE void addEntry(const QString &place, const QString &time, const double &bs, const QString &description, const QString &other);
     Q_INVOKABLE void addHeader(const QString &user, const QString &date);
@@ -30,6 +28,7 @@ public:
 private:
     QTextCursor m_cursor;
     QTextDocument *m_document;
+    QSettings *m_settings;
 };
 
 #endif // REPORTWRITER_H

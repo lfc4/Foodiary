@@ -137,11 +137,14 @@ ApplicationWindow
                         users.append({"id": rs.rows.item(i).id, "name":rs.rows.item(i).name, "age":rs.rows.item(i).age, "gender":rs.rows.item(i).gender, "weight":rs.rows.item(i).weight, "length":rs.rows.item(i).length, "type":rs.rows.item(i).type})
                     }
                     if(rs.rows.length > 0){
-                        if(FileIO.lastUser() == "")
+                        console.log("Last user: " + ReportWriter.lastUser())
+                        if(ReportWriter.lastUser() == "") {
                             currentUser = rs.rows.item(0).id
+                        }
                         else
-                            currentUser = FileIO.lastUser()
+                            currentUser = ReportWriter.lastUser()
                     }
+
                     console.log("Sql: Current user: " + currentUser + ". " + rs.rows.item(currentUser - 1).name);
                 }
                 );

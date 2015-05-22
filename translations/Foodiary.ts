@@ -12,22 +12,22 @@
 <context>
     <name>DiaryPage</name>
     <message>
-        <location filename="../qml/pages/DiaryPage.qml" line="227"/>
+        <location filename="../qml/pages/DiaryPage.qml" line="225"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DiaryPage.qml" line="237"/>
+        <location filename="../qml/pages/DiaryPage.qml" line="235"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DiaryPage.qml" line="247"/>
+        <location filename="../qml/pages/DiaryPage.qml" line="245"/>
         <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DiaryPage.qml" line="256"/>
+        <location filename="../qml/pages/DiaryPage.qml" line="254"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>

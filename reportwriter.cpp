@@ -8,14 +8,13 @@
 #include <QTextCursor>
 #include <QStandardPaths>
 #include <QFileInfo>
-//#include <QPrinter>
 #include <QDebug>
 
 ReportWriter::ReportWriter(QObject *parent) : QObject(parent)
 {
     m_document = new QTextDocument();
     m_cursor = QTextCursor(m_document);
-    settings = new QSettings;
+    m_settings = new QSettings();
     qDebug() << " constructor called ********************************************************";
 }
 
@@ -83,12 +82,12 @@ void ReportWriter::addHeader(const QString &user, const QString &date)
     //Format table
     QTextTableFormat tableFormat;
     //tableFormat.setPageBreakPolicy(QTextFormat::PageBreak_AlwaysAfter);
-    tableFormat.setCellPadding(5);
+    tableFormat.setCellPadding(10);
     tableFormat.setHeaderRowCount(1);
     tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
     //tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
     //tableFormat.borderStyle(QTextFrameFormat::BorderStyle_Solid);
-    tableFormat.setCellSpacing(5);
+    //tableFormat.setCellSpacing(5);
     tableFormat.setBorderBrush(QBrush(Qt::SolidPattern));
     tableFormat.setBorder(1);
     tableFormat.setColumnWidthConstraints(colWidths);
@@ -144,11 +143,11 @@ QString ReportWriter::convertDateTime(QString date)
 
 QString ReportWriter::lastUser()
 {
-    QString lu = settings->value("lastUser").toString();
+    QString lu = m_settings->value("lastUser").toString();
     return lu;
 }
 
 void ReportWriter::saveSettings(QString user)
 {
-    settings->setValue("lastUser", user);
+    m_settings->setValue("lastUser", user);
 }

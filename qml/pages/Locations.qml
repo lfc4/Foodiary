@@ -5,6 +5,7 @@ Page {
     id: addLoca
     property bool saveLocationChanges: false
     property bool addLocation: false
+    property bool editLocation: false
 
     function clearLocationValues(){
         newLocationName.text = ""
@@ -31,9 +32,20 @@ Page {
                     clearLocationValues()
                     addLocation = true
                     locationName.visible = false
+                    newLocationName.text = ""
                     newLocationName.visible = true
                     newLocationName.focus = true
                     description.text = ""
+                }
+            }
+            MenuItem {
+                text: "Edit"
+                onClicked: {
+                    locationName.visible = false
+                    newLocationName.visible = true
+                    newLocationName.text = foodiary.locations.get(locationName.currentIndex).name
+                    newLocationName.focus = true
+                    editLocation = true;
                 }
             }
             MenuItem {
@@ -47,13 +59,29 @@ Page {
                         addLocation = false
                         locationName.visible = true
                         newLocationName.visible = false
-                        locationName.currentIndex = 0
+                        newLocationName.text = ""
+                        locationName.currentIndex = foodiary.locations.count - 1
+                    }
+                    else if(editLocation)
+                    {
+                        var ind = locationName.currentIndex
+                        console.log("ind: " + ind)
+                        foodiary.updateLocation(foodiary.locations.get(locationName.currentIndex).id, newLocationName.text, description.text, coordinates.text)
+                        foodiary.getLocations()
+                        editLocation = false
+                        locationName.visible = true
+                        newLocationName.visible = false
+                        newLocationName.text = ""
+                        locationName.currentIndex = ind
+                        foodiary.locations.get(ind).id
+                        console.log("ind: " + ind)
                     }
                     else
                     {
+                        var ind = locationName.currentIndex
                         foodiary.updateLocation(foodiary.locations.get(locationName.currentIndex).id, foodiary.locations.get(locationName.currentIndex).name, description.text, coordinates.text)
                         foodiary.getLocations()
-                        locationName.currentIndex = 0
+                        locationName.currentIndex = ind
                     }
                 }
             }

@@ -7,6 +7,6 @@ FEATURES
 -mail report
 
 BUGS
-meal, location and user settings don't refresh properly after creating new and/or saving(partially fixed on meal and location)
+meal, location and user settings don't refresh properly after creating new or editing, always selects first row
 Language options
 VCS template almost OK, still cant change column widths and insert page breaks

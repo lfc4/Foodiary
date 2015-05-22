@@ -5,6 +5,7 @@ Page {
     id: addUsr
     property bool saveUserChanges: false
     property bool addNewUser: false
+    property bool editName: false
 
     function clearUserValues(){
         newName.text = ""
@@ -20,6 +21,12 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: "Delete"
+                onClicked: {
+                    foodiary.deleteUser(foodiary.users.get(name.currentIndex).id)
+                }
+            }
+            MenuItem {
                 text: "New"
                 onClicked: {
                     clearUserValues()
@@ -27,6 +34,16 @@ Page {
                     name.visible = false
                     newName.visible = true
                     newName.focus = true
+                }
+            }
+            MenuItem {
+                text: "Edit"
+                onClicked: {
+                    name.visible = false
+                    newName.visible = true
+                    newName.text = foodiary.users.get(name.currentIndex).name
+                    newName.focus = true
+                    editName = true;
                 }
             }
             MenuItem {
@@ -39,20 +56,27 @@ Page {
                         addNewUser = false
                         name.visible = true
                         newName.visible = false
+                        newName.text = ""
                         name.currentIndex = foodiary.users.count - 1
+                    }
+                    else if(editName)
+                    {
+                        var ind = name.currentIndex
+                        foodiary.updateUser(foodiary.users.get(name.currentIndex).id, newName.text, age.text, "", parseFloat(weight.text) , parseFloat(lenght.text), type.text)
+                        foodiary.getUsers()
+                        editName = false
+                        name.visible = true
+                        newName.visible = false
+                        newName.text = ""
+                        name.currentIndex = ind
                     }
                     else
                     {
+                        var ind = name.currentIndex
                         foodiary.updateUser(foodiary.users.get(name.currentIndex).id, foodiary.users.get(name.currentIndex).name, age.text, "", parseFloat(weight.text) , parseFloat(lenght.text), type.text)
                         foodiary.getUsers()
-                        name.currentIndex = foodiary.currentUser - 1
+                        name.currentIndex = ind
                     }
-                }
-            }
-            MenuItem {
-                text: "Delete"
-                onClicked: {
-                    foodiary.deleteUser(foodiary.users.get(name.currentIndex).id)
                 }
             }
         }

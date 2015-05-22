@@ -5,15 +5,10 @@ FEATURES
 -Sync database between devices
 -Port app to Android, WinRT
 -mail report
--Settings for last user
 -Define own report templates
 -Add sections per day in statistics
 
 BUGS
-Copy to new option when selecting from stats
-overlapping menu in statistics
 meal, location and user settings don't refresh properly after creating new and/or saving(partially fixed on meal and location)
-Location other than home not shown properly
 Language options
-Camera not working
 VCS template almost OK, still cant change column widths and insert page breaks

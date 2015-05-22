@@ -10,3 +10,4 @@ BUGS
 meal, location and user settings don't refresh properly after creating new or editing, always selects first row
 Language options
 VCS template almost OK, still cant change column widths and insert page breaks
+Solve problem with mismatching idexes, så index - 1 can be removed to get cleaner code

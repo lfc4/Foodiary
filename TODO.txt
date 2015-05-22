@@ -5,8 +5,6 @@ FEATURES
 -Sync database between devices
 -Port app to Android, WinRT
 -mail report
--Define own report templates
--Add sections per day in statistics
 
 BUGS
 meal, location and user settings don't refresh properly after creating new and/or saving(partially fixed on meal and location)

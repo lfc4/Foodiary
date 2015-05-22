@@ -164,7 +164,7 @@ Page {
         {
             if(saveChanges === true && foodiary.currentEntry !== "")
             {
-                foodiary.updateDiary(foodiary.entries.get(foodiary.currentEntry).id, foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, "")
+                foodiary.updateDiary(foodiary.entries.get(foodiary.currentEntry).id, foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.locations.get(place.currentIndex - 1).id, other.text, "")
                 foodiary.currentEntry = ""
                 clearAllValues()
                 editMode = false
@@ -187,7 +187,7 @@ Page {
                 {
                     bloodsugar.text = "0.0"
                 }
-                foodiary.saveDiary(foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.currentLocation, other.text, "")
+                foodiary.saveDiary(foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.locations.get(place.currentIndex - 1).id, other.text, "")
                 foodiary.currentEntry = ""
                 console.log("Save: " + foodiary.currentUser);
                 clearAllValues()
@@ -443,7 +443,8 @@ Page {
                     }
 
                    onCurrentIndexChanged:{
-                       foodiary.currentLocation = foodiary.locations.get(place.currentIndex -1).id
+                       console.log("place id: " + place.currentIndex)
+                       //foodiary.currentLocation = foodiary.locations.get(place.currentIndex).id
                        saveChanges = true
                    }
                 }

@@ -225,6 +225,7 @@ ApplicationWindow
                 db.transaction(function(tx) {
                     var rs = tx.executeSql('SELECT * FROM Diary WHERE user = ? ORDER BY date DESC, time DESC;', [user]);
                     console.log("Sql: " + rs.rows.length + " entries found on " + user + " ");
+                    var curdate = ""
 
                     for(var i=0; i < rs.rows.length; i++) {
                         var ind = rs.rows.item(i).id || ""
@@ -238,7 +239,10 @@ ApplicationWindow
                         var o = rs.rows.item(i).other || ""
                         var m = rs.rows.item(i).meal || ""
 
-                        entries.append({"id": ind, "user": u, "date": d, "time": t, "bs": b, "picture": p, "description": desc, "location": l, "other": o, "meal": m})
+                        if(curdate != d)
+                            curdate = d
+
+                        entries.append({"id": ind, "user": u, "date": d, "time": t, "bs": b, "picture": p, "description": desc, "location": l, "other": o, "meal": m, "section": ReportWriter.convertDateTime(curdate)})
                     }
                     if(rs.rows.length > 0){
                         newestEntry = rs.rows.item(0).id

@@ -164,7 +164,7 @@ Page {
         {
             if(saveChanges === true && foodiary.currentEntry !== "")
             {
-                foodiary.updateDiary(foodiary.entries.get(foodiary.currentEntry).id, foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.locations.get(place.currentIndex - 1).id, other.text, "")
+                foodiary.updateDiary(foodiary.entries.get(foodiary.currentEntry).id, foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.locations.get(place.currentIndex).name, other.text, "")
                 foodiary.currentEntry = ""
                 clearAllValues()
                 editMode = false
@@ -187,7 +187,7 @@ Page {
                 {
                     bloodsugar.text = "0.0"
                 }
-                foodiary.saveDiary(foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.locations.get(place.currentIndex - 1).id, other.text, "")
+                foodiary.saveDiary(foodiary.currentUser, dateNow, timeNow, before.source, parseFloat(bloodsugar.text), description.text, foodiary.locations.get(place.currentIndex).name, other.text, "")
                 foodiary.currentEntry = ""
                 console.log("Save: " + foodiary.currentUser);
                 clearAllValues()
@@ -443,8 +443,8 @@ Page {
                     }
 
                    onCurrentIndexChanged:{
-                       console.log("place id: " + place.currentIndex)
-                       //foodiary.currentLocation = foodiary.locations.get(place.currentIndex).id
+                       console.log("combobox id: " + place.currentIndex)
+                       console.log("location id: " + foodiary.locations.get(place.currentIndex).id + ", name: " + foodiary.locations.get(place.currentIndex).name)
                        saveChanges = true
                    }
                 }

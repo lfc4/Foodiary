@@ -103,9 +103,9 @@ Page {
                 text: {
                     console.log("BS: " + bs.toFixed(1))
                     if(bs.toFixed(1) != 0.0)
-                        foodiary.locations.get(location - 1).name + " " + time + " " + bs.toFixed(1) + " mmol/l"
+                        location + " " + time + " " + bs.toFixed(1) + " mmol/l"
                     else
-                        foodiary.locations.get(location - 1).name + " " + time
+                        location + " " + time
                 }
                 anchors.verticalCenter: parent.verticalCenter
                 color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor

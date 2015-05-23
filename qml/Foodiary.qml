@@ -323,7 +323,7 @@ ApplicationWindow
                                     if(type == "VCS")
                                     {
                                         if(j == 0)
-                                            ReportWriter.addEntry(locations.get(l - 1).name, t, b, res[j], o)
+                                            ReportWriter.addEntry(l, t, b, res[j], o)
                                         else
                                             ReportWriter.addEntry("", "", "", res[j], "")
                                     }
@@ -340,7 +340,7 @@ ApplicationWindow
                             {
                                 console.log("Description " + desc)
                                 if(type == "VCS")
-                                    ReportWriter.addEntry(locations.get(l - 1).name, t, b, desc, o)
+                                    ReportWriter.addEntry(l, t, b, desc, o)
 //                                else
 //                                    FileIO.appendToReport(fileName, ind + "," + u  + "," + d  + "," + t  + "," + b  + "," + p  + "," + desc  + "," + fileName, locations.get(l).name  + "," + o + "," + m + "\r\n")
                             }

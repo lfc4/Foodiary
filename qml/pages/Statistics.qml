@@ -6,12 +6,6 @@ Page {
     property int currentId: 0
     property ListModel listModel: foodiary.entries
 
-    function clearAll()
-    {
-        foodiary.clearEntries(foodiary.currentUser)
-        listModel.clear()
-    }
-
     Component {
         id: report
         Report {}
@@ -44,11 +38,6 @@ Page {
 
         PullDownMenu {
             id: pullDownMenu
-            MenuItem {
-                text: "Clear"
-                visible: listView.count
-                onClicked: clearRemorse.execute("Clearing", function() { clearAll() } )
-            }
             MenuItem {
                 text: "Make report"
                 onClicked: {

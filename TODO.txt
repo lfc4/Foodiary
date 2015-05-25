@@ -2,12 +2,15 @@ TODO
 
 FEATURES
 -Graph mode in statistics
--Sync database between devices
+-Sync database between devices, own db server or some cloud db server
 -Port app to Android, WinRT
 -mail report
+-Language options
+-More advanced predefined meals section with possibility to define eg medication per user for certain time of the day
 
 BUGS
 meal, location and user settings don't refresh properly after creating new or editing, always selects first row
-Language options
 VCS template almost OK, still cant change column widths and insert page breaks
 Solve problem with mismatching idexes, så index - 1 can be removed to get cleaner code
+Description not always cleared properly
+Sometimes new emty entry is created
